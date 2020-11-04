@@ -1,0 +1,39 @@
+﻿@model Blog.ViewModels.PostListViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Posts)
+        {
+            <div class="col-md-4">
+                <div class="single-blog-item">
+                    <div class="blog-thumnail">
+                        <a asp-controller="Home" asp-action="Post" asp-route-id="@item.PostId">
+                            @if (!String.IsNullOrEmpty(item.Image))
+                            {
+                                var image_path = $"/Image/{item.Image}";
+                                <img class="img-fluid rounded" src="@image_path" alt="blog-img" />
+                            }
+                        </a>
+                    </div>
+                    <div class="blog-content">
+                        <h4><a asp-controller="Home" asp-action="Post" asp-route-id="@item.PostId">@item.Title</a></h4>                        
+                        <a asp-controller="Home" asp-action="Post" asp-route-id="@item.PostId" class="more-btn">View More</a>
+                    </div>
+                    <span class="blog-date">@item.Created</span>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <page-link page-model="Model.PageViewModel"
+               page-action="Index"
+               page-classes-enable="true"
+               page-class="btn" page-class-normal="btn-default"
+               page-class-selected="btn-primary"
+               class="btn-group pull-right">
+    </page-link>
+</div>

@@ -1,0 +1,36 @@
+﻿@model Blog.Models.Post
+@{
+}
+<!-- Title -->
+<h1 class="mt-4">@Model.Title</h1>
+
+<!-- Date/Time -->
+<p>Posted on @Model.Created</p>
+
+<hr>
+
+<!-- Preview Image -->
+@if (!String.IsNullOrEmpty(Model.Image))
+{
+    var image_path = $"/Image/{Model.Image}";
+    <img src="@image_path" class="card-img-top" alt="Card image cap" />
+}
+
+<hr>
+
+<!-- Post Content -->
+@Html.Raw(Model.Body)
+<hr>
+
+
+@foreach (var comment in Model.Comments)
+{
+    <div class="media mb-4">
+        @*<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">*@
+        <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            @comment.Message
+        </div>
+    </div>
+}
+

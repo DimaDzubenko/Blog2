@@ -1,0 +1,24 @@
+﻿@model Blog.ViewModels.PostListViewModel
+@{ ViewData["Title"] = "Admin Panel"; }
+<h3>@ViewData["Title"]</h3>
+<a asp-controller="Admin" asp-action="Edit">Create post</a>
+<hr />
+<div>
+    <ol>
+        @foreach (var post in Model.Posts)
+        {
+            <li>
+                <a asp-controller="Admin" asp-action="Post" asp-route-id="@post.PostId">@post.Title</a> |
+                <a asp-controller="Admin" asp-action="Edit" asp-route-id="@post.PostId">Edit</a> |
+                <a asp-controller="Admin" asp-action="Remove" asp-route-id="@post.PostId">Remove</a>
+            </li>
+        }
+    </ol>
+    <page-link page-model="Model.PageViewModel"
+               page-action="List"
+               page-classes-enable="true"
+               page-class="btn" page-class-normal="btn-default"
+               page-class-selected="btn-primary"
+               class="btn-group pull-right">
+    </page-link>
+</div>

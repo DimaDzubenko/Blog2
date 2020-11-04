@@ -1,0 +1,29 @@
+﻿@model Blog.ViewModels.PostViewModel
+
+@{ }
+<link href="~/lib/trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+<div>
+    <form method="post" asp-controller="Admin" asp-action="Edit" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden" />
+        <div>
+            <label>Title</label>
+            <input asp-for="Title" />
+        </div>
+        <div>
+            <label>Body</label>
+            <textarea asp-for="Body" id="editor" class="form-control"></textarea>
+        </div>
+        <div>
+            <label>Image</label>
+            <input asp-for="CurrentImage" type="hidden" />
+            <input asp-for="Image" />
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+
+@section scripts{
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/lib/trumbowyg-master/dist/trumbowyg.min.js"></script>
+    <script>$('#editor').trumbowyg();</script>
+}
