@@ -1,7 +1,7 @@
 ﻿@model Blog.ViewModels.PostViewModel
 
 @{ }
-<link href="~/lib/trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+<link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.css" rel="stylesheet" />
 <div>
     <form method="post" asp-controller="Admin" asp-action="Edit" enctype="multipart/form-data">
         <input asp-for="Id" type="hidden" />
@@ -24,6 +24,8 @@
 
 @section scripts{
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="~/lib/trumbowyg-master/dist/trumbowyg.min.js"></script>
-    <script>$('#editor').trumbowyg();</script>
+    <script src="~/lib/Trumbowyg-master/dist/trumbowyg.js"></script>
+    <script>
+        $('#editor').trumbowyg();
+    </script>
 }
