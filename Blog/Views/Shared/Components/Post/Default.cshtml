@@ -26,11 +26,13 @@
 @foreach (var comment in Model.Comments)
 {
     <div class="media mb-4">
-        @*<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">*@
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="" style="max-width: 50px;">
         <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
+            <h3 class="mt-0">@comment.ApplicationUser.AppUserName</h3>
+            <h5 class="mt-0">@comment.Created</h5>
             @comment.Message
         </div>
+        <hr />
     </div>
 }
 

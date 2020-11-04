@@ -1,6 +1,9 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @model Blog.Models.Comment
 
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager
+@{ string userId = _userManager.GetUserId(User); }
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,6 +24,7 @@
                         <form asp-action="Post" asp-controller="Home">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" name="captcha" id="captchaInput" />
+                            <input asp-for="ApplicationUserId" value="@userId" type="hidden"/>
                             <div class="form-group">
                                 <textarea asp-for="Message" class="form-control" rows="3" placeholder="Comment content..."></textarea>
                             </div>

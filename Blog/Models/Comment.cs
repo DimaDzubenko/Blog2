@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Blog.Models
 {
@@ -9,7 +8,7 @@ namespace Blog.Models
         public DateTime Created { get; set; }
         public string Message { get; set; }
         public int PostId { get; set; }
-        public int AppUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public virtual Post Post { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }

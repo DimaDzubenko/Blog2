@@ -11,6 +11,8 @@ using Blog.Data.FileManager;
 using Blog.Data;
 using GoogleReCaptcha.V3.Interface;
 using Blog.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Blog.Controllers
 {
@@ -22,13 +24,16 @@ namespace Blog.Controllers
         private readonly workblogmvcdbContext _context;
         private readonly ICaptchaValidator _captchaValidator;
 
+        private readonly UserManager<ApplicationUser> _userManager;
+
         public int PageSize = 9;
 
         public HomeController(  ILogger<HomeController> logger,
                                 IRepository repository,
                                 IFileManager fileManager,
                                 workblogmvcdbContext context,
-                                ICaptchaValidator captchaValidator
+                                ICaptchaValidator captchaValidator,
+                                UserManager<ApplicationUser> userManager
                               )
         {
             _logger = logger;
@@ -36,6 +41,7 @@ namespace Blog.Controllers
             _fileManager = fileManager;
             _context = context;
             _captchaValidator = captchaValidator;
+            _userManager = userManager;
         }
 
         [HttpGet("/Image/{image}")]
@@ -66,7 +72,11 @@ namespace Blog.Controllers
         [HttpGet("Home/Post/{PostId}")]
         public async Task<IActionResult> Post(int? PostId)
         {
-
+            //var user = await _userManager.GetUserAsync(User);
+            //var id = _userManager.GetUserId(User);
+            //var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userId = ((ClaimsIdentity)User.Identity).FindFirst("Id").Value;
+            ApplicationUser usr = await GetCurrentUserAsync();
             var comment = new Comment { PostId = PostId.Value };
             return View(comment);
         }
@@ -102,5 +112,8 @@ namespace Blog.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
